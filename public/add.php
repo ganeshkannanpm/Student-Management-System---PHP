@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../config/Database.php';
 require_once '../classes/Student.php';
 
@@ -27,8 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = $student->add($name, $email, $phone);
 
         if ($result) {
-            $success = "Student added successfully";
+            $_SESSION['success'] = "Student added successfully";
             header("Location:index.php");
+            exit;
         } else {
             $errors[] = "Failed to add student";
         }

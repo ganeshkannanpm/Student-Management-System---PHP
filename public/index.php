@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../classes/Student.php';
 require_once '../config/Database.php';
 
@@ -22,6 +23,17 @@ $students = $student->getAll();
     <div class="container mt-5">
         <h2 class="mb-4 text-center text-white">Student Management System</h2>
         <a href="add.php" class="btn btn-success mb-3">+ Add Student</a>
+
+        <?php
+        if (!empty($_SESSION['success'])) {
+            echo '<div class="alert alert-success">' . $_SESSION['success'] . '</div>';
+            unset($_SESSION['success']); 
+        }
+        ?>
+
+        <?php if (isset($_GET['msg']) && $_GET['msg'] == 'deleted'): ?>
+            <div class="alert alert-success">Student deleted successfully!</div>
+        <?php endif; ?>
 
         <?php if ($students->num_rows > 0): ?>
             <table class="table table-bordered table-striped">
@@ -58,4 +70,5 @@ $students = $student->getAll();
         <?php endif; ?>
     </div>
 </body>
+
 </html>

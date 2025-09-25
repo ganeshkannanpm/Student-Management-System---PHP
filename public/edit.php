@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../config/Database.php';
 require_once '../classes/Student.php';
 
@@ -35,8 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($updated) {
             $success = "Updated successfully";
+            $_SESSION['success'] = "Student updated successfully";
             $data = $student->getById($id);
             header("Location:index.php");
+            exit;
         } else {
             $errors[] = "Failed to update";
         }
