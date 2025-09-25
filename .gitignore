@@ -1,0 +1,35 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Composer dependencies
+/vendor/
+composer.lock
+
+# Node dependencies (if you ever add frontend tools)
+node_modules/
+
+# Environment & config
+.env
+config/Database.php
+
+# IDE & Editor files
+*.swp
+*.swo
+*.idea/
+.vscode/
+nbproject/
+
+# Logs & cache
+*.log
+logs/
+cache/
+tmp/
+
+# Uploads (optional – keep student photos private if you add this feature later)
+uploads/
+
+# Backup files
+*.bak
+*.tmp
+*.old
