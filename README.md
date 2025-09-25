@@ -1,6 +1,6 @@
 # 🎓 Student Management System
 
-A simple **CRUD application** built using **PHP (OOP)**, **MySQLi**, and **Bootstrap 5**.  
+A simple **CRUD application** built using **PHP (OOP)**, **MySQL**, and **Bootstrap 5**.  
 This project allows you to **Add, Edit, Delete, Search, and Paginate** student records.
 
 ---
