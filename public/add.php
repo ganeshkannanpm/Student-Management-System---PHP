@@ -52,18 +52,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2 class="text-white text-center">Add New Student</h2>
         <a href="index.php" class="btn btn-secondary mb-3">← Back</a>
 
+        <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger">
+                <?php echo implode('<br>', $errors); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($success): ?>
+            <div class="alert alert-success"><?php echo $success; ?></div>
+        <?php endif; ?>
+
         <form method="POST" class="card p-4 shadow-sm">
             <div class="mb-3">
                 <label for="name" class="form-label">Name *</label>
-                <input type="text" name="name" class="form-control" value="<?= $_POST['name'] ?? '' ?>">
+                <input type="text" name="name" class="form-control" value="<?php echo $_POST['name'] ?? '' ?>">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email *</label>
-                <input type="email" name="email" class="form-control" value="<?= $_POST['email'] ?? '' ?>">
+                <input type="email" name="email" class="form-control" value="<?php echo $_POST['email'] ?? '' ?>">
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone *</label>
-                <input type="text" name="phone" class="form-control" value="<?= $_POST['phone'] ?? '' ?>">
+                <input type="text" name="phone" class="form-control" value="<?php echo $_POST['phone'] ?? '' ?>">
             </div>
             <button type="submit" class="btn btn-primary">Add Student</button>
         </form>

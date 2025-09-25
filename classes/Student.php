@@ -14,7 +14,7 @@ class Student
     public function getAll()
     {
 
-        $sql = "SELECT * FROM $this->table ORDER BY id DESC";
+        $sql = "SELECT * FROM $this->table ORDER BY id ASC";
         return $this->conn->query($sql);
     }
 
@@ -44,7 +44,7 @@ class Student
         $email = $this->conn->real_escape_string($email);
         $phone = $this->conn->real_escape_string($phone);
 
-        $sql = "UPDATE $this->table SET name='$name', email='$email', phone='$phone'";
+        $sql = "UPDATE $this->table SET name='$name', email='$email', phone='$phone' WHERE id=$id";
         return $this->conn->query($sql);
     }
 
