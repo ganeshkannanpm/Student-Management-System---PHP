@@ -11,11 +11,25 @@ class Student
         $this->conn = $db;
     }
 
-    public function getAll()
+    // Get students with search & pagination
+    public function getAll($search = "", $limit = 5, $offset = 0)
     {
-
-        $sql = "SELECT * FROM $this->table ORDER BY id ASC";
+        $search = $this->conn->real_escape_string($search);
+        $sql = "SELECT * FROM $this->table 
+                WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%' 
+                ORDER BY id ASC 
+                LIMIT $limit OFFSET $offset";
         return $this->conn->query($sql);
+    }
+
+    // Count total students (for pagination)
+    public function countAll($search = "")
+    {
+        $search = $this->conn->real_escape_string($search);
+        $sql = "SELECT COUNT(*) as total FROM $this->table 
+                WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%'";
+        $result = $this->conn->query($sql);
+        return $result->fetch_assoc()['total'];
     }
 
     public function getById($id)

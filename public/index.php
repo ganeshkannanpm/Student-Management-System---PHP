@@ -8,6 +8,17 @@ $conn = $db->connect();
 $student = new Student($conn);
 $students = $student->getAll();
 
+// Search & Pagination
+$search = $_GET['search'] ?? "";
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$limit = 5; // students per page
+$offset = ($page - 1) * $limit;
+
+// Fetch data
+$students = $student->getAll($search, $limit, $offset);
+$total = $student->countAll($search);
+$totalPages = ceil($total / $limit);
+
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +33,21 @@ $students = $student->getAll();
 <body class="bg-dark">
     <div class="container mt-5">
         <h2 class="mb-4 text-center text-white">Student Management System</h2>
+
+        <!-- Search Form -->
+        <form method="get" class="d-flex mb-3">
+            <input type="text" name="search" class="rounded me-2" placeholder="Search"
+                value="<?php echo htmlspecialchars($search) ?>">
+            <button class="btn btn-primary">Search</button>
+             <a href="index.php" class="btn btn-info ms-2">Reset</a>
+        </form>
+
         <a href="add.php" class="btn btn-success mb-3">+ Add Student</a>
 
         <?php
         if (!empty($_SESSION['success'])) {
             echo '<div class="alert alert-success">' . $_SESSION['success'] . '</div>';
-            unset($_SESSION['success']); 
+            unset($_SESSION['success']);
         }
         ?>
 
@@ -65,6 +85,20 @@ $students = $student->getAll();
                     <?php endwhile; ?>
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <nav>
+                <ul class="pagination">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item <?php echo ($i == $page) ? 'active' : '' ?>">
+                            <a class="page-link" href="?search=<?php echo urlencode($search) ?>&page=<?php echo $i ?>">
+                                <?php echo $i ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
+
         <?php else: ?>
             <div class="alert alert-info">No students found.</div>
         <?php endif; ?>
